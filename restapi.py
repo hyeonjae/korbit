@@ -12,7 +12,6 @@ class RestApi():
             
         self.conn.request(method.value, api, payload, headers)    
         res = self.conn.getresponse()
-        print(dir(res))
         data = res.read()
         return data.decode('utf-8')
 
