@@ -87,8 +87,6 @@ class Korbit():
             'content-type': "application/x-www-form-urlencoded",
             'Authorization': 'Bearer {}'.format(access_token)
         }
-        print(params)
-        print(headers)
         return self.api.request('/v1/user/orders/buy', Method.POST, payload=params, headers=headers)
 
     # 지정가 주문
