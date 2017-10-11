@@ -29,5 +29,5 @@ import configparser
 # access_token = token['access_token']
 # user = k.GetUserInfo(access_token)
 
-# payload = Korbit.OrderBuyLimitTypeParameterBuilder(Currency.ETH, 344400, 0.01)
+# payload = Korbit.OrderBuyLimitTypeParameterBuilder(Currency.ETH, 344400, 0.01, k.nonce)
 # r = k.OrderBuy(access_token, payload)

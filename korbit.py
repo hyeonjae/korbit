@@ -7,16 +7,20 @@ from korbit.enums import Method
 from korbit.enums import Time
 import json
 import urllib.parse
+import time
 
 class Korbit():
     def __init__(self):
         self.api = RestApi('api.korbit.co.kr')
-        self.__nonce = 0
+        self.__nonce = self.__millisecond()
 
     @property
     def nonce(self):
-        self.__nonce += 1
+        self.__nonce = self.__millisecond()
         return self.__nonce
+
+    def __millisecond(self):
+        return int(time.time() * 1000)
 
     # 인증
     @Deserializer
@@ -72,8 +76,8 @@ class Korbit():
 
     # 체결 내역
     @Deserializer
-    def GetTransactions(self, currency=Currency.BTC, time=Time.HOUR):
-        return self.api.request('/v1/transactions?currency_pair={}&time={}'.format(currency.value, Time.HOUR.value), Method.GET)
+    def GetTransactions(self, currency=Currency.BTC, time_unit=Time.HOUR):
+        return self.api.request('/v1/transactions?currency_pair={}&time={}'.format(currency.value, time_unit.value), Method.GET)
 
     # 각종 제약조건
     @Deserializer
@@ -91,18 +95,18 @@ class Korbit():
 
     # 지정가 주문
     @classmethod
-    def OrderBuyLimitTypeParameterBuilder(self, currency, price, coin_amount):
+    def OrderBuyLimitTypeParameterBuilder(self, currency, price, coin_amount, nonce):
         return {
             'currency_pair': currency.value,
             'type': 'limit',
             'price': price,
             'coin_amount': coin_amount,
-            'nonce': self.nonce
+            'nonce': nonce
         }
 
     # 시장가 주문
     @classmethod
-    def OrderBuyMarketTypeParameterBuilder(self, currency, flat_amount):
+    def OrderBuyMarketTypeParameterBuilder(self, currency, flat_amount, nonce):
         return {
             'currency_pair': currency.value,
             'type': 'market',
