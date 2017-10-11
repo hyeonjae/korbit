@@ -110,5 +110,6 @@ class Korbit():
         return {
             'currency_pair': currency.value,
             'type': 'market',
-            'flat_amount': flat_amount
+            'flat_amount': flat_amount,
+            'nonce': nonce
         }
