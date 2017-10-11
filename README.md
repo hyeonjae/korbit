@@ -14,7 +14,7 @@ PASSWORD={account password}
 
 ## Examples
 ### configparser
-```
+```python
 import configparser
 
 config = configparser.ConfigParser()
