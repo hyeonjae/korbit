@@ -13,7 +13,7 @@ PASSWORD={account password}
 ```
 
 ## Examples
-### configparser
+### read config.ini
 ```python
 import configparser
 
